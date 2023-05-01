@@ -1,0 +1,36 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+  {% if employee_list %}
+    <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+        <th class="th-sm">Id</th>
+        <th class="th-sm">Name</th>
+        <th class="th-sm">Designation</th>
+        <th class="th-sm">Department</th>
+        <th class="th-sm">Joining Date</th>
+        <th class="th-sm">Basic</th>
+        <th class="th-sm">Allowence</th>
+        <th class="th-sm">City</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for emp in employee_list %}
+          <tr>
+            <td>{{emp.id}}</td>
+            <td>{{emp.name}}</td>
+            <td>{{emp.designation}}</td>
+            <td>{{emp.department.name}}</td>
+            <td>{{emp.joining_date}}</td>
+            <td>{{emp.basic}}</td>
+            <td>{{emp.allowence}}</td>
+            <td>{{emp.city}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3>No Employee Informations</h3>
+  {% endif %}
+{% endblock %}
