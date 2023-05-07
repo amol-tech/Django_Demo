@@ -1,0 +1,12 @@
+<div class="jumbotron">
+    <div class="confirm-delete">
+        <h6>Confirm to delete this Entry!!</h6>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+        <form method="post" action="{{request.path}}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" >Delete</button>
+        </form>
+    </div>
+</div>

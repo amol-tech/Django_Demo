@@ -106,13 +106,24 @@
     $(document).ready(function () {
       $('#dtHorizontalVerticalExample').DataTable(
         {
-          "pageLength": 30,
+          "pageLength": 27,
           "scrollY": "100vh",
           "scrollCollapse": true
         }
       );
       $('.dataTables_length').addClass('bs-select');
     });
+
+    $(document).on("click", ".show-standard-popup", function (e) {
+        e.preventDefault();
+        var title = $(this).data('title');
+        var $popup = $("#standard_popup");
+        var popup_url = $(this).data("popup-url");
+        $(".modal-header #id_modal_title").text(title);
+        $(".modal-body", $popup).load(popup_url, function () {
+          $popup.modal("show");
+        });
+     });
   </script>
 </body>
 </html>

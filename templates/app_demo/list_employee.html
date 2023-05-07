@@ -13,6 +13,7 @@
         <th class="th-sm">Basic</th>
         <th class="th-sm">Allowence</th>
         <th class="th-sm">City</th>
+        <th class="th-sm">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -26,10 +27,25 @@
             <td>{{emp.basic}}</td>
             <td>{{emp.allowence}}</td>
             <td>{{emp.city}}</td>
+            <td>
+              <a class="show-standard-popup"
+                       data-title="Edit Employee"
+                       data-popup-url="{% url 'app_demo:index_employee_update' pk=emp.id %}">
+                <i class="far fa-edit" style="color: red;"></i>
+              </a>
+              <a class="show-standard-popup"
+                       data-title="Delete Department"
+                       data-popup-url="{% url 'app_demo:index_employee_delete' pk=emp.id %}">
+                <img src="{% static 'icons/delete.png' %}"/>
+              </a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
+    <a class="show-standard-popup btn"
+           data-title="Add Department"
+           data-popup-url="{% url 'app_demo:index_employee_create' %}">Add Employee</a>
   {% else %}
     <h3>No Employee Informations</h3>
   {% endif %}
