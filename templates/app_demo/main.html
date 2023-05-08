@@ -80,6 +80,12 @@
       {% endblock %}
   </div>
 
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
   <div class="modal" id="standard_popup">
         <div class="modal-dialog">
           <div class="modal-content">
