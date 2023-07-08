@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+<div class="jumbotron" xmlns="http://www.w3.org/1999/html">
+    <form method="post" action="{{request.path}}">
+        {% csrf_token %}
+         <div class="row">
+            <div class="col-12">
+                {{ form.date|as_crispy_field }}
+                {{ form.customer|as_crispy_field }}
+                {{ form.gross_amount|as_crispy_field }}
+                {{ form.disc_rate|as_crispy_field }}
+                {{ form.disc_amount|as_crispy_field }}
+                {{ form.net_amount|as_crispy_field }}
+            </div>
+         </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn" value="Submit">
+        </div>
+    </form>
+</div>

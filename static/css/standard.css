@@ -63,12 +63,13 @@ div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTable
 }
 
 .btn{
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
     border-radius: 1rem;
     background-color: #265481;
     color: white;
-    font-size : 0.6 rem;
+    font-size : 7.5 rem;
+    text-transform :none;
 }
 
 .form-group{
@@ -153,4 +154,30 @@ div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTable
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
+}
+
+.row_standard{
+    margin-left : 3px;
+    margin-right : 3px;
+}
+
+.column_standard {
+    padding: 5px;
+    border-top:1px solid;
+    border-bottom:1px solid;
+    border-left:1px solid;
+}
+
+.column_last {
+    padding: 5px;
+    border:1px solid;
+}
+
+.div_right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.th_title{
+    background-color: lightblue;
 }

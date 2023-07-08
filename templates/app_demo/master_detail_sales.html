@@ -1,0 +1,100 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row row_standard" style="width:100%;height: 100%" xmlns="http://www.w3.org/1999/html">
+    <div class="column column_standard" style="width:30%;height: 100%">
+        <div class="div_right">
+            <a class="btn show-standard-popup"
+                       data-title="Edit Sales"
+                       data-popup-url="{% url 'app_demo:index_sales_update' pk=sales.id %}">Edit
+            </a>
+        </div>
+        <div>
+             <table id="dtBasic" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="th-sm th_title" >Sales Details</th>
+                        <th class="th-sm th_title" ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Invoice No.</td><td>{{sales.id}}</td></tr>
+                    <tr><td>Invoice Date</td><td>{{sales.date}}</td></tr>
+                    <tr><td>Gross Amount</td><td>{{sales.gross_amount}}</td></tr>
+                    <tr><td>Discount Rate</td><td>{{sales.disc_rate}}</td></tr>
+                    <tr><td>Discount</td><td>{{sales.disc_amount}}</td></tr>
+                    <tr><td>Invoice Amount</td><td>{{sales.net_amount}}</td></tr>
+                </tbody>
+             </table>
+            </br>
+            <table id="dtBasic" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="th-sm th_title">Customer Details</th>
+                        <th class="th-sm th_title"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Name</td><td>{{sales.customer.name}}</td></tr>
+                    <tr><td>Address</td><td>{{sales.customer.address}}</td></tr>
+                    <tr><td>Landmark</td><td>{{sales.customer.landmark}}</td></tr>
+                    <tr><td>City</td><td>{{sales.customer.city}}</td></tr>
+                    <tr><td>State</td><td>{{sales.customer.state}}</td></tr>
+                </tbody>
+             </table>
+        </div>
+    </div>
+    <div class="column column_last" style="width: 70%;height:100%">
+        <div>
+            <a id="#add_button" class="show-standard-popup"
+                       data-title="Add Sales Item"
+                       data-popup-url="{% url 'app_demo:index_salesitem_create' fk=sales.id %}">
+                <i class="fa fa-plus-circle" style="color: #265481;font-size: 1.5rem"></i>
+              </a>
+        </div>
+        <div>
+            <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="th-sm">Sr.</th>
+                        <th class="th-sm">Product</th>
+                        <th class="th-sm">Cost</th>
+                        <th class="th-sm">Manufacturer</th>
+                        <th class="th-sm">Rate</th>
+                        <th class="th-sm">Quantity</th>
+                        <th class="th-sm">Amount</th>
+                        <th class="th-sm">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sales_item in sales_items %}
+                        <tr>
+                            <td></td>
+                            <td>{{sales_item.id}}</td>
+                            <td>{{sales_item.product.name}}</td>
+                            <td>{{sales_item.product.cost_rate}}</td>
+                            <td>{{sales_item.product.manufacturer}}</td>
+                            <td>{{sales_item.rate}}</td>
+                            <td>{{sales_item.qty}}</td>
+                            <td>{{sales_item.amount}}</td>
+                            <td>
+                              <a class="show-standard-popup"
+                                       data-title="Edit Sales Item"
+                                       data-popup-url="{% url 'app_demo:index_salesitem_update' pk=sales_item.id %}">
+                                <i class="far fa-edit" style="color: red;"></i>
+                              </a>
+                              <a class="show-standard-popup"
+                                       data-title="Delete Sales Item"
+                                       data-popup-url="{% url 'app_demo:index_salesitem_delete' pk=sales_item.id %}">
+                                <img src="{% static 'icons/delete.png' %}"/>
+                              </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+         </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

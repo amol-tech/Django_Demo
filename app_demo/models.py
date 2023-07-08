@@ -56,3 +56,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Sales(models.Model):
+    id = models.AutoField(primary_key=True,db_column='sales_id')
+    date = models.DateField(db_column='sales_date')
+    customer = models.ForeignKey(Customer,on_delete=models.DO_NOTHING)
+    gross_amount = models.DecimalField(max_digits=12,decimal_places=2,db_column='gross_amt')
+    disc_rate = models.DecimalField(max_digits=5,decimal_places=2,db_column='disc_rate')
+    disc_amount = models.DecimalField(max_digits=12, decimal_places=2, db_column='disc_amt')
+    net_amount = models.DecimalField(max_digits=12, decimal_places=2, db_column='net_amt')
+
+    def __str__(self):
+        return 'Invoice No - ' + str(self.id)
+
+class SalesItem(models.Model):
+    id = models.AutoField(primary_key=True, db_column='sales_item_id')
+    sales = models.ForeignKey(Sales,on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    rate = models.DecimalField(max_digits=12, decimal_places=2, db_column='rate')
+    qty = models.DecimalField(max_digits=5, decimal_places=0, db_column='qty')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, db_column='disc_amt')

@@ -1,0 +1,49 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+  {% if sales_list %}
+    <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+        <th class="th-sm">Invoice No</th>
+        <th class="th-sm">Invoice Date</th>
+        <th class="th-sm">Customer</th>
+        <th class="th-sm">Credit</th>
+        <th class="th-sm">Location</th>
+        <th class="th-sm">Gross Amount</th>
+        <th class="th-sm">Disc Rate</th>
+        <th class="th-sm">Discount</th>
+        <th class="th-sm">Bill Amount</th>
+        <th class="th-sm">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+        {% for sales in sales_list %}
+          <tr>
+            <td>{{sales.id}}</td>
+            <td>{{sales.date}}</td>
+            <td>{{sales.customer.name}}</td>
+            <td>{{sales.customer.credit_limit}}</td>
+            <td>{{sales.customer.city}}</td>
+            <td>{{sales.gross_amount}}</td>
+            <td>{{sales.disc_rate}}</td>
+            <td>{{sales.disc_amount}}</td>
+            <td>{{sales.net_amount}}</td>
+            <td>
+              <a href="{% url 'app_demo:index_sales_master_detail' sales_id=sales.id %}">
+                <i class="far fa-edit" style="color: red;"></i>
+              </a>
+              <a class="show-standard-popup"
+                       data-title="Delete Sales"
+                       data-popup-url="{% url 'app_demo:index_sales_delete' pk=sales.id %}">
+                <img src="{% static 'icons/delete.png' %}"/>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3>No Sales Informations</h3>
+  {% endif %}
+{% endblock %}
