@@ -4,5 +4,10 @@
   {% with customer_list=customer_list template_name="app_demo/tables/table_customer.html" %}
     {% include template_name %}
   {% endwith %}
+  {% if list_dict_menu %}
+    {% with list_dict_menu=list_dict_menu template_name="standard/std_context_menu.html" %}
+      {% include template_name %}
+    {% endwith %}
+  {% endif %}
   <script src="{% static './js/standard.js' %}"></script>
 {% endblock %}
