@@ -1,5 +1,5 @@
 from django import forms
-from app_demo.models import Employee,Sales,SalesItem
+from app_demo.models import Employee,Sales,SalesItem,Customer
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit,Field
 
@@ -39,4 +39,8 @@ class SalesItemForm(forms.ModelForm):
         super(SalesItemForm, self).__init__(*args, **kwargs)
         self.fields['sales'] .disabled = True
 
+class CustomerForm(forms.ModelForm):
+    class Meta():
+        model = Customer
+        fields = '__all__'
 

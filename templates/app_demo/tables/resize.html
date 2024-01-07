@@ -1,0 +1,38 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+<div style="width:100%;height:100%" >
+        <table class="table table-striped table-bordered table-sm fixed_headers">
+        <thead class="table-header-color">
+        <tr>
+          <th class="th-sm">Action</th>
+          <th class="th-sm">Id</th>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Designation</th>
+          <th class="th-sm">Department</th>
+          <th class="th-sm">Joining Date</th>
+          <th class="th-sm">Basic</th>
+          <th class="th-sm">Allowence</th>
+          <th class="th-sm">City</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for emp in employee_list %}
+            <tr class="row-select">
+                <td>Edit</td>
+                <td>{{emp.id}}</td>
+                <td>{{emp.name}}</td>
+                <td>{{emp.designation}}</td>
+                <td>{{emp.department.name}}</td>
+                <td>{{emp.joining_date}}</td>
+                <td>{{emp.basic}}</td>
+                <td>{{emp.allowence}}</td>
+                <td>{{emp.city}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+</div>
+<script src="{% static './js/standard.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+<table id="tb_customer" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+   <thead class="table-header-color">
+      <tr>
+         <th class="th-sm">Action</th>
+         <th class="th-sm">Id</th>
+         <th class="th-sm">Name</th>
+         <th class="th-sm">Credit_Limit</th>
+         <th class="th-sm">Address</th>
+         <th class="th-sm">Landmark</th>
+         <th class="th-sm">City</th>
+         <th class="th-sm">State</th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for customer in customer_list %}
+         <tr class="row-select" >
+            <td>
+               <a class="show-standard-popup" data-title="Edit Customer" data-popup-url="{% url 'app_demo:index_customer_update' pk=customer.id %}">
+                  <i class="far fa-edit" style="color: red;"></i>
+               </a>
+               <a class="show-standard-popup" data-title="Delete Customer" data-popup-url="{% url 'app_demo:index_customer_delete' pk=customer.id %}">
+                  <img src="{% static 'icons/delete.png' %}"/>
+               </a>
+            </td>
+            <td>{{customer.id}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.credit_limit}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.landmark}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.state}}</td>
+         </tr>
+      {% endfor %}
+   </tbody>
+</table>

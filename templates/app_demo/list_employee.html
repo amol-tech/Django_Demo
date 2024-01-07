@@ -1,52 +1,71 @@
 {% extends 'app_demo/main.html' %}
 {% load static %}
 {% block content %}
-  {% if employee_list %}
-    <table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-      <thead>
-      <tr>
-        <th class="th-sm">Id</th>
-        <th class="th-sm">Name</th>
-        <th class="th-sm">Designation</th>
-        <th class="th-sm">Department</th>
-        <th class="th-sm">Joining Date</th>
-        <th class="th-sm">Basic</th>
-        <th class="th-sm">Allowence</th>
-        <th class="th-sm">City</th>
-        <th class="th-sm">Action</th>
-      </tr>
-      </thead>
-      <tbody>
-        {% for emp in employee_list %}
-          <tr>
-            <td>{{emp.id}}</td>
-            <td>{{emp.name}}</td>
-            <td>{{emp.designation}}</td>
-            <td>{{emp.department.name}}</td>
-            <td>{{emp.joining_date}}</td>
-            <td>{{emp.basic}}</td>
-            <td>{{emp.allowence}}</td>
-            <td>{{emp.city}}</td>
-            <td>
-              <a class="show-standard-popup"
-                       data-title="Edit Employee"
-                       data-popup-url="{% url 'app_demo:index_employee_update' pk=emp.id %}">
-                <i class="far fa-edit" style="color: red;"></i>
-              </a>
-              <a class="show-standard-popup"
-                       data-title="Delete Department"
-                       data-popup-url="{% url 'app_demo:index_employee_delete' pk=emp.id %}">
-                <img src="{% static 'icons/delete.png' %}"/>
-              </a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <a class="show-standard-popup btn"
-           data-title="Add Department"
-           data-popup-url="{% url 'app_demo:index_employee_create' %}">Add Employee</a>
+  <div style="width:100%;height: 100%">
+    <div class="row" >
+      <div id="div_employee_action" class="col-sm-12 col-md-6 input">
+         <a class="show-standard-popup btn"
+             data-title="Add Department"
+             data-popup-url="{% url 'app_demo:index_employee_create' %}">Add Employee</a>
+      </div>
+      <div id="div_employee_filter" class="col-sm-12 col-md-3"></div>
+      <div id="div_employee_pagination" class="col-sm-12 col-md-3"></div>
+    </div>
+    {% if employee_list %}
+    <div style="width:100%;height:95%" class="table-wrap">
+      <table id="tbl_employee" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead class="table-header-color">
+        <tr>
+          <th class="th-sm">Action</th>
+          <th class="th-sm">Id</th>
+          <th class="th-sm">Name</th>
+          <th class="th-sm">Designation</th>
+          <th class="th-sm">Department</th>
+          <th class="th-sm">Joining Date</th>
+          <th class="th-sm">Basic</th>
+          <th class="th-sm">Allowence</th>
+          <th class="th-sm">City</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for emp in employee_list %}
+            <tr class="row-select">
+              <td>
+                <a class="show-standard-popup"
+                         data-title="Edit Employee"
+                         data-popup-url="{% url 'app_demo:index_employee_update' pk=emp.id %}">
+                  <i class="far fa-edit" style="color: red;"></i>
+                </a>
+                <a class="show-standard-popup"
+                         data-title="Delete Department"
+                         data-popup-url="{% url 'app_demo:index_employee_delete' pk=emp.id %}">
+                  <img src="{% static 'icons/delete.png' %}"/>
+                </a>
+              </td>
+              <td class="row_id">{{emp.id}}</td>
+              <td>{{emp.name}}</td>
+              <td>{{emp.designation}}</td>
+              <td>{{emp.department.name}}</td>
+              <td>{{emp.joining_date}}</td>
+              <td>{{emp.basic}}</td>
+              <td>{{emp.allowence}}</td>
+              <td>{{emp.city}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
   {% else %}
     <h3>No Employee Informations</h3>
   {% endif %}
+  {% if list_dict_menu %}
+    {% with list_dict_menu=list_dict_menu template_name="standard/std_context_menu.html" %}
+      {% include template_name %}
+    {% endwith %}
+  {% endif %}
+  <script src="{% static './js/standard.js' %}"></script>
+  <script>
+    configSelectionEventWithContextMenu("tbl_employee");
+  </script>
 {% endblock %}

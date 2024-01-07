@@ -1,0 +1,8 @@
+{% extends '#application#/main.html' %}
+{% load static %}
+{% block content %}
+  {% with #model#_list=#model#_list template_name="#application#/tables/table_#model#.html" %}
+    {% include template_name %}
+  {% endwith %}
+  <script src="{% static './js/standard.js' %}"></script>
+{% endblock %}

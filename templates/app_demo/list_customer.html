@@ -1,0 +1,8 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+  {% with customer_list=customer_list template_name="app_demo/tables/table_customer.html" %}
+    {% include template_name %}
+  {% endwith %}
+  <script src="{% static './js/standard.js' %}"></script>
+{% endblock %}

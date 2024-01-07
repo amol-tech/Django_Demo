@@ -1,0 +1,34 @@
+sales_right_click:
+    - name: Export
+      icon: fa fa-share
+      children:
+          - name: CSV File
+            icon: fa fa-file-text-o
+          - name: Excel File
+            icon: fa fa-file-excel-o
+    - name: Import
+      icon: fa fa-reply
+employee_right_click:
+    - name: Create
+      icon: fa fa-plus
+    - name: Update
+      icon: fa fa-pencil-square-o
+      action_title: Edit Employee
+      action_index: employee_update
+    - name: Delete
+      icon: fa fa-times
+    - name: Search
+      icon: fa fa-search
+    - name: Refresh
+      icon: fa fa-refresh
+      children:
+        - name: CSV File
+          icon: fa fa-file-text-o
+          action_title: Change Employee
+          action_index: employee_update
+        - name: Apple
+          icon: fa fa-share
+        - name: Mango
+          icon: fa fa-share
+        - name: Orange
+          icon: fa fa-share

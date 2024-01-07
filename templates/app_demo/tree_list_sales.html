@@ -1,0 +1,63 @@
+{% extends 'app_demo/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row row_standard" style="width:100%;height: 100%">
+    <div class="column column_standard" style="width:20%;height:100%">
+      <div  class="treeview w-20 border overflow-auto" style="width:100%;height:100%">
+            {% if tree_nodes_sales %}
+                <ul id="sales_tree" class="mb-1 pl-3 pb-2" >
+                {% with list_dict_node=tree_nodes_sales template_name="standard/std_tree_node.html" %}
+                   {% include template_name %}
+                {% endwith %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div class="column column_standard" style="width:80%;height: 100%">
+        <div style="width:100%;height:60%" id="sales_view" class="table-wrap">
+          <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead class="table-header-color">
+                <tr>
+                  <th class="th-sm">Invoice No</th>
+                  <th class="th-sm">Invoice Date</th>
+                  <th class="th-sm">Customer</th>
+                  <th class="th-sm">Credit</th>
+                  <th class="th-sm">Location</th>
+                  <th class="th-sm">Gross Amount</th>
+                  <th class="th-sm">Disc Rate</th>
+                  <th class="th-sm">Discount</th>
+                  <th class="th-sm">Bill Amount</th>
+                  <th class="th-sm">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div style="width:100%;height:40%" id="sales_item_view" class="table-wrap">
+            <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead class="table-header-color">
+                    <tr>
+                        <th></th>
+                        <th class="th-sm">Sr.</th>
+                        <th class="th-sm">Product</th>
+                        <th class="th-sm">Cost</th>
+                        <th class="th-sm">Manufacturer</th>
+                        <th class="th-sm">Rate</th>
+                        <th class="th-sm">Quantity</th>
+                        <th class="th-sm">Amount</th>
+                        <th class="th-sm">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="{% static './js/standard.js' %}"></script>
+<script>
+configSelectionEvent("sales_tree");
+configOnSelectionView('sales_tree',"{% url 'app_demo:index_sales_list' %}","sales_view");
+</script>
+{% endblock %}
