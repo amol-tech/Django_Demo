@@ -1,13 +1,28 @@
 {% extends 'app_demo/main.html' %}
 {% load static %}
 {% block content %}
-  {% with customer_list=customer_list template_name="app_demo/tables/table_customer.html" %}
-    {% include template_name %}
-  {% endwith %}
+  <div class="column column_standard" style="height:100%">
+    <div style="width:100%;height:50%" id="customer_view" class="table-wrap">
+        {% with customer_list=customer_list template_name="app_demo/tables/table_customer.html" %}
+          {% include template_name %}
+        {% endwith %}
+    </div>
+    <div class="row row_standard" style="width:100%;height:50%" >
+      <div id="bar_chart_view" class="column column_standard" style="width:50%;height:100%">
+        {{chart_bar_sales|safe}}
+      </div>
+      <div id="line_chart_view" class="column column_standard" style="width:50%;height:100%">
+     </div>
+    </div>
+  </div>
   {% if list_dict_menu %}
     {% with list_dict_menu=list_dict_menu template_name="standard/std_context_menu.html" %}
       {% include template_name %}
     {% endwith %}
   {% endif %}
   <script src="{% static './js/standard.js' %}"></script>
+  <script>
+    configSelectionEvent("tbl_customer");
+    configOnSelectionView('tbl_customer',"{% url 'app_demo:index_bar_chart_sales' %}","line_chart_view");
+  </script>
 {% endblock %}

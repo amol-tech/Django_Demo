@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function ()
         resizer.addEventListener('mousedown', mouseDownHandler);
     };
 
-    createResizableTable(document.getElementById('tbl_employee'));
+    //createResizableTable(document.getElementById('tbl_employee'));
 });
 
 function configure_action_bar(model_name)
@@ -116,6 +116,7 @@ for(r of rows)
 
 function configSelectionEvent(elementId)
 {
+    debugger;
     var elm_parent = document.getElementById(elementId);
     var rows = elm_parent.getElementsByClassName("row-select");
     for(r of rows)
