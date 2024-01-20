@@ -5,7 +5,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','proj_demo.settings')
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
-from app_demo.models import Department,Employee
+from app_demo.models import Department,Employee,Customer,Product,Sales,SalesItem
 import datetime
 
 
@@ -25,7 +25,23 @@ def get_basic_fact(desig):
     else:
         return 10
 
-def add_department(id, name, location, start_range, end_range):
+def create_customers(start_index,end_index):
+    fake_gen = Faker()
+    
+    for i in range(start_index,end_index):
+        cust_id = 'C' + ('00' if i <= 9 else ('0' if i <= 99 else '')) + str(i)
+        c_limit = random.choice([10,15,20,30,12,8])
+        cust = Customer.objects.get_or_create(id=cust_id,
+                                              name=fake_gen.name(),
+                                              credit_limit=c_limit,
+                                              address = fake_gen.address().replace('\n',''),
+                                              landmark=fake_gen.street_address(),
+                                              city=fake_gen.city(),
+                                              state=fake_gen.state())[0]
+        cust.save()
+    print('Customers created successfully')    
+
+def create_employees(id, name, location, start_range, end_range):
     dept = Department.objects.get_or_create(id=id, name=name, location=location)[0]
     dept.save()
     designations = dict_desig.get(name)
@@ -50,3 +66,55 @@ def add_department(id, name, location, start_range, end_range):
                                              department=dept)[0]
         emp.save()
     print('Successfully generated data for department : '+name)
+
+def create_sales(start_index,end_index,start_date,end_date):
+    
+    customers = Customer.objects.all()
+    products = Product.objects.all()
+    fake_gen = Faker()
+    
+    for i in range(start_index, end_index):
+        cust = random.choice(customers)
+        gross_amt = 0
+        # Sales
+        sales = Sales.objects.get_or_create(id=i,
+                                            date=fake_gen.date_between(start_date,end_date),
+                                            customer = cust,
+                                            gross_amount = 0,
+                                            disc_rate = random.choice([5,10,15,20]),
+                                            disc_amount = 0,
+                                            net_amount = 0)[0]
+        sales.save()
+        
+        # Sales Items
+        for i in range(1,random.randint(2,8)):
+            prod = random.choice(products)
+            qty = random.randint(1,6)
+            rate = prod.cost_rate + (100 * random.randint(5,20))
+            amt = rate * qty
+            salesitem = SalesItem.objects.get_or_create(sales = sales,
+                                            product = prod,
+                                            rate = rate,
+                                            qty = qty,
+                                            amount = amt)[0]
+            salesitem.save()
+            
+            gross_amt = gross_amt + amt
+        
+        # Update Sales
+        disc = gross_amt * sales.disc_rate / 100
+        sales.gross_amount = gross_amt
+        sales.disc_amount = disc
+        sales.net_amount = gross_amt - disc
+        sales.save()
+    print('Sales created successfully in a range of ',start_index,'-',end_index)
+    
+
+create_employees('D01','Sales','Mumbai',1,60)
+create_employees('D02','Account','Bangalore',61,100)
+create_employees('D03','Production','Pune',101,140)
+create_employees('D04','Purchase','Hydrabad',141,160)
+create_customers(1,21)
+create_sales(1,100,datetime.date(2021, 1, 1),datetime.date(2021, 12,31))
+create_sales(101,200,datetime.date(2022, 1, 1),datetime.date(2022, 12,31))
+create_sales(201,300,datetime.date(2023, 1, 1),datetime.date(2023, 12,31))
