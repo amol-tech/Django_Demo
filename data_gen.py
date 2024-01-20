@@ -7,6 +7,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 django.setup()
 from app_demo.models import Department,Employee,Customer,Product,Sales,SalesItem
 import datetime
+import pandas as pd
 
 
 fake_gen = Faker()
@@ -50,23 +51,37 @@ def create_employees(id, name, location, start_range, end_range):
         emp_id = 'E' + ('00' if i <= 9 else ('0' if i <= 99 else '')) + str(i)
         desig = random.choice(designations)
         basic_fact = get_basic_fact(desig)
-
-        emp = Employee.objects.get_or_create(id=emp_id,
-                                             name=fake_gen.name(),
-                                             designation=desig,
-                                             joining_date=fake_gen.date_between(datetime.date(2016, 1, 1),
-                                                                                datetime.date(2021, 12, 30)),
-                                             basic=fake_gen.pydecimal(left_digits=5, right_digits=0,
-                                                                      positive=True) * basic_fact,
-                                             allowence=fake_gen.pydecimal(left_digits=3, right_digits=0,
+        
+        try:
+            emp = Employee.objects.get_or_create(id=emp_id,
+                                                 name=fake_gen.name(),
+                                                 designation=desig,
+                                                 joining_date=fake_gen.date_between(datetime.date(2016, 1, 1),
+                                                                                    datetime.date(2021, 12, 30)),
+                                                 basic=fake_gen.pydecimal(left_digits=5, right_digits=0,
                                                                           positive=True) * basic_fact,
-                                             address=fake_gen.street_address(),
-                                             city=fake_gen.city(),
-                                             contact_no=fake_gen.phone_number(),
-                                             department=dept)[0]
-        emp.save()
+                                                 allowence=fake_gen.pydecimal(left_digits=3, right_digits=0,
+                                                                              positive=True) * basic_fact,
+                                                 address=fake_gen.street_address(),
+                                                 city=fake_gen.city(),
+                                                 contact_no=fake_gen.phone_number(),
+                                                 department=dept)[0]
+            emp.save()
+        except:
+            print('Failed to create employee')
     print('Successfully generated data for department : '+name)
 
+def create_products():
+    df_prod = pd.read_csv('product.csv')
+    list_dict_prod = df_prod.to_dict('records')
+    for d_prod in list_dict_prod:
+        prod = Product.objects.get_or_create(id=d_prod['id'],
+                                                  name=d_prod['name'],
+                                                  manufacturer=d_prod['manufacturer'],
+                                                  cost_rate=d_prod['cost_rate'])[0]
+        prod.save()
+    print('Products created successfully')
+    
 def create_sales(start_index,end_index,start_date,end_date):
     
     customers = Customer.objects.all()
@@ -110,11 +125,12 @@ def create_sales(start_index,end_index,start_date,end_date):
     print('Sales created successfully in a range of ',start_index,'-',end_index)
     
 
-create_employees('D01','Sales','Mumbai',1,60)
-create_employees('D02','Account','Bangalore',61,100)
-create_employees('D03','Production','Pune',101,140)
-create_employees('D04','Purchase','Hydrabad',141,160)
-create_customers(1,21)
+#create_employees('D01','Sales','Mumbai',1,60)
+#create_employees('D02','Account','Bangalore',61,100)
+#create_employees('D03','Production','Pune',101,140)
+#create_employees('D04','Purchase','Hydrabad',141,160)
+#create_customers(1,21)
+#create_products()
 create_sales(1,100,datetime.date(2021, 1, 1),datetime.date(2021, 12,31))
 create_sales(101,200,datetime.date(2022, 1, 1),datetime.date(2022, 12,31))
 create_sales(201,300,datetime.date(2023, 1, 1),datetime.date(2023, 12,31))
