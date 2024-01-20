@@ -1,0 +1,11 @@
+id,name,manufacturer,cost_rate
+P001,Monitor,Lenova,10000.00
+P002,Harddisk,Toshiba,12000.00
+P003,Mouse,IBall,350.00
+P004,Keyboard,Logitech,4500.00
+P005,Cabinet,Suraj Electronics,2500.00
+P006,Mother Board,Dell,24000.00
+P007,Speaker,Logitech,400.00
+P008,Power Cabel,Starco,600.00
+P009,Battery,HP,3500.00
+P010,RAM,Kingston,3000.00

@@ -125,12 +125,12 @@ def create_sales(start_index,end_index,start_date,end_date):
     print('Sales created successfully in a range of ',start_index,'-',end_index)
     
 
-#create_employees('D01','Sales','Mumbai',1,60)
-#create_employees('D02','Account','Bangalore',61,100)
-#create_employees('D03','Production','Pune',101,140)
-#create_employees('D04','Purchase','Hydrabad',141,160)
-#create_customers(1,21)
-#create_products()
+create_employees('D01','Sales','Mumbai',1,60)
+create_employees('D02','Account','Bangalore',61,100)
+create_employees('D03','Production','Pune',101,140)
+create_employees('D04','Purchase','Hydrabad',141,160)
+create_customers(1,21)
+create_products()
 create_sales(1,100,datetime.date(2021, 1, 1),datetime.date(2021, 12,31))
 create_sales(101,200,datetime.date(2022, 1, 1),datetime.date(2022, 12,31))
 create_sales(201,300,datetime.date(2023, 1, 1),datetime.date(2023, 12,31))
