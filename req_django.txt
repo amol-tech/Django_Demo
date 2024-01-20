@@ -1,0 +1,8 @@
+pandas
+django
+django-crispy-forms==1.14.0
+faker
+plotly
+plotly-express
+PyYAML
+traitlets
