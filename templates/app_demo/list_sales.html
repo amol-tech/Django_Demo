@@ -12,6 +12,8 @@
   {% endwith %}
   <script src="{% static './js/standard.js' %}"></script>
   <script>
+
+
     configSelectionEventWithContextMenu("dtBasic1");
     configOnSelectionView('dtBasic1',"{% url 'app_demo:index_sales_item_list' %}","sales_item_view");
   </script>

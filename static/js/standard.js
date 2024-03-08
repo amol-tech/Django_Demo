@@ -1,66 +1,23 @@
 // Data Table Pagination
-document.addEventListener('DOMContentLoaded', function ()
-{
-    const createResizableTable = function (table)
-    {
-        const cols = table.querySelectorAll('th');
-        const updateTableWidth = () =>
-        {
-            table.style.width = [].reduce.call(
-            cols,
-            (sum, col) => sum + parseInt(col.style.width),
-            0
-            ) + 'px';
-        };
-
-        [].forEach.call(cols, function (col)
-        {
-            // Add a resizer element to the column
-            const resizer = document.createElement('div');
-            resizer.classList.add('resizer');
-            // Set the height
-            resizer.style.height = `${table.offsetHeight}px`;
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer, updateTableWidth);
-        });
-        updateTableWidth();
-    };
-
-    const createResizableColumn = function (col, resizer, updateTableWidth)
-    {
-        let x = 0;
-        let w = parseInt(window.getComputedStyle(col).width, 10);
-        col.style.width = `${w}px`;
-
-        const mouseDownHandler = function (e)
-        {
-            x = e.clientX;
-            const styles = window.getComputedStyle(col);
-            w = parseInt(styles.width, 10);
-            document.addEventListener('mousemove', mouseMoveHandler);
-            document.addEventListener('mouseup', mouseUpHandler);
-            resizer.classList.add('resizing');
-        };
-
-        const mouseMoveHandler = function (e)
-        {
-            const dx = e.clientX - x;
-            col.style.width = `${w + dx}px`;
-            updateTableWidth();
-        };
-
-        const mouseUpHandler = function ()
-        {
-            resizer.classList.remove('resizing');
-            document.removeEventListener('mousemove', mouseMoveHandler);
-            document.removeEventListener('mouseup', mouseUpHandler);
-        };
-
-        resizer.addEventListener('mousedown', mouseDownHandler);
-    };
-
-    //createResizableTable(document.getElementById('tbl_employee'));
-});
+$("td,th")
+     .css({
+         /* required to allow resizer embedding */
+         position: "relative"
+     })
+     /* check .resizer CSS */
+     .prepend("<div class='resizer'></div>")
+     .resizable({
+         resizeHeight: false,
+         // we use the column as handle and filter
+         // by the contained .resizer element
+         handleSelector: "",
+         onDragStart: function(e, $el, opt) {
+         // only drag resizer
+         if (!$(e.target).hasClass("resizer"))
+             return false;
+         return true;
+         }
+     });
 
 function configure_action_bar(model_name)
 {
@@ -90,6 +47,15 @@ function configure_action_bar(model_name)
     }
 }
 
+$(".panel-left").resizable({
+            handleSelector: ".splitter-v",
+            resizeHeight: false
+     });
+ $(".panel-top").resizable({
+        handleSelector: ".splitter-h",
+        resizeWidth: false
+ });
+
 $(document).on("click", ".show-standard-popup", function (e) {
     e.preventDefault();
     var title = $(this).data('title');
@@ -116,7 +82,6 @@ for(r of rows)
 
 function configSelectionEvent(elementId)
 {
-    debugger;
     var elm_parent = document.getElementById(elementId);
     var rows = elm_parent.getElementsByClassName("row-select");
     for(r of rows)

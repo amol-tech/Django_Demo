@@ -1,8 +1,8 @@
 {% extends 'app_demo/main.html' %}
 {% load static %}
 {% block content %}
-<div class="row row_standard" style="width:100%;height:100%" xmlns="http://www.w3.org/1999/html">
-    <div class="column column_standard" style="width:30%;height: 100%">
+<div class="panel-container-v" style="width:100%;height:100%" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-left" style="width:30%;height: 100%">
         <div class="div_right">
             <a class="btn show-standard-popup"
                        data-title="Edit Sales"
@@ -44,7 +44,8 @@
              </table>
         </div>
     </div>
-    <div class="column column_last" style="width: 70%;height:100%">
+    <div class="splitter-v"><div class="splitter-v-line"></div></div>
+    <div class="panel-right" style="width: 70%;height:100%">
         <div>
             <a id="#add_button" class="show-standard-popup"
                        data-title="Add Sales Item"

@@ -8,6 +8,7 @@ table td {
     font-size: .7rem;
     font-weight: 200;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    white-space: nowrap;
 }
 table th 
 {
@@ -20,6 +21,7 @@ table th
 table.table-sm th, table.table-sm td {
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
+    white-space: nowrap;
 }
 .table{
     margin-bottom : 0rem;
@@ -153,23 +155,6 @@ div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTable
   border-top: none;
 }
 
-.row_standard{
-    margin-left : 3px;
-    margin-right : 3px;
-}
-
-.column_standard {
-    padding: 5px;
-    border-top:1px solid;
-    border-bottom:1px solid;
-    border-left:1px solid;
-}
-
-.column_last {
-    padding: 5px;
-    border:1px solid;
-}
-
 .div_right {
     display: flex;
     justify-content: flex-end;
@@ -210,23 +195,86 @@ div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTable
     border: 1px solid #dee2e6;
 }
 
+/*
+    panel containers css to split the screen horizontally/vertically using splitter ============================================
+*/
+.panel-container-v {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid silver;
+  overflow: hidden;
+  /* avoid browser level touch actions */
+  xtouch-action: none;
+}
+
+.panel-container-h {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid silver;
+  overflow: hidden;
+}
+
+.panel-left {
+  flex: 0 0 auto;
+  /* only manually resize */
+  white-space: nowrap;
+}
+
+.panel-top {
+  flex: 0 0 auto;
+  /* only manually resize */
+  padding: 5px;
+  white-space: nowrap;
+}
+
+.panel-bottom {
+  flex: 1 1 auto;
+  /* resizable */
+  padding: 5px;
+}
+
+.panel-right {
+  flex: 1 1 auto;
+  /* resizable */
+}
+
+.splitter-v {
+  flex: 0 0 auto;
+  width: 05px;
+  cursor: col-resize;
+}
+
+.splitter-v-line {
+  flex: 0 0 auto;
+  width: 03px;
+  background: silver;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.splitter-h {
+  flex: 0 0 auto;
+  height: 5px;
+  cursor: row-resize;
+}
+
+.splitter-h-line {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  height: 3px;
+  background: silver;
+  cursor: row-resize;
+}
+
+/*
+    Column Resizer to resize the column for all html tables in general ============================================
+*/
 .resizer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    cursor: col-resize;
-    user-select: none;
-}
-
-.resizer:hover,
-.resizing {
-    border-right: 2px solid blue;
-}
-
-.resizable {
-    border: 1px solid gray;
-    height: 100px;
-    width: 100px;
-    position: relative;
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  left: auto;
+  width: 16px;
+  cursor: col-resize;
 }
